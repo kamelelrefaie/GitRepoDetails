@@ -1,4 +1,4 @@
-package com.example.juniorandroiddevelopertask
+package com.example.juniorandroiddevelopertask.presentaion
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,15 +8,29 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.juniorandroiddevelopertask.ui.theme.JuniorAndroidDeveloperTaskTheme
+import com.example.juniorandroiddevelopertask.presentaion.theme.JuniorAndroidDeveloperTaskTheme
+import com.example.juniorandroiddevelopertask.presentaion.utils.ConnectivityObserver
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var connectivityManager: ConnectivityObserver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
-            JuniorAndroidDeveloperTaskTheme {
+            val status by connectivityManager.observe().collectAsState(
+                initial =true
+            )
+            JuniorAndroidDeveloperTaskTheme(isNetworkAvailable = status) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
