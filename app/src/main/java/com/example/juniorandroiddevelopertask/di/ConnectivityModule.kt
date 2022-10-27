@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ConnectivityBinding {
+abstract class ConnectivityModule {
 
     @Singleton
     @Binds
