@@ -9,11 +9,14 @@ import com.example.juniorandroiddevelopertask.utils.Constants.REPO_PAGINATION_PA
 @Dao
 interface GitHubRepoDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertRepos(entities: List<GithubRepoEntity>)
 
     @Query("DELETE FROM GithubRepoEntity")
     suspend fun deleteAllRepos()
+
+    @Query("DELETE FROM GithubRepoEntity WHERE repo_name LIKE '%' || :query || '%'")
+    suspend fun deleteRepoWithQuery(query:String)
 
     /**
      * Retrieve repos for a particular page.

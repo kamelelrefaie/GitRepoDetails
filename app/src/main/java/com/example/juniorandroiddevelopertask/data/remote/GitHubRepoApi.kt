@@ -8,10 +8,10 @@ import retrofit2.http.Query
 interface GitHubRepoApi {
 
     @GET("search/repositories")
-    fun getReposFromNetwork(
+    suspend fun getReposFromNetwork(
         @Query("q") query: String,
         @Query("page") page: Int,
-        @Query("per_page") pageSize: Int = REPO_PAGINATION_PAGE_SIZE
+        @Query("per_page") pageSize: Int = REPO_PAGINATION_PAGE_SIZE + 10
     ): GitHubDto
 
     companion object {

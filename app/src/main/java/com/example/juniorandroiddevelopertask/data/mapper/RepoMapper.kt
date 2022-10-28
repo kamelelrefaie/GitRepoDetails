@@ -11,7 +11,7 @@ fun Item.toGithubEntity(): GithubRepoEntity {
         open_issues_count = open_issues_count,
         forks_count = forks_count,
         stargazers_count = stargazers_count,
-        description = description,
+        description = description?: "",
         repo_name = name,
         avatar_url = owner.avatar_url, login = owner.login,
         repo_id = id

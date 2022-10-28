@@ -1,4 +1,5 @@
 package com.example.juniorandroiddevelopertask.presentaion.common
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,7 +13,7 @@ import androidx.compose.ui.unit.dp
 fun ConnectivityMonitor(
     isNetworkAvailable: Boolean,
 ) {
-    if (!isNetworkAvailable) {
+    AnimatedVisibility(visible = !isNetworkAvailable) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 "No Internet Connection",
@@ -24,4 +25,5 @@ fun ConnectivityMonitor(
             Spacer(modifier = Modifier.height(10.dp))
         }
     }
+
 }
