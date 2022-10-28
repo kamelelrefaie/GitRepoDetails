@@ -16,23 +16,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.juniorandroiddevelopertask.domain.model.Repo
+import com.example.juniorandroiddevelopertask.presentaion.navigation.Screen
 import com.example.juniorandroiddevelopertask.presentaion.theme.*
 
 val bgColorList = listOf(
-     Green, Yellow
+    Green, Yellow
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepoItem(repo: Repo, navController: NavHostController) {
+fun RepoItem(repo: Repo, navController: NavHostController = rememberNavController()) {
     Card(
         shape = RoundedCornerShape(14.dp),
         modifier = Modifier
             .fillMaxSize()
             .clickable {
-                //navigate
-            }, colors = CardDefaults.cardColors(containerColor = bgColorList.random())
+                navController.navigate(Screen.RepoDetail.repoDetailWithId(repo.repoId))
+            }, colors = CardDefaults.cardColors(containerColor = if (repo.forksCount > 50) bgColorList[0] else bgColorList[1])
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,

@@ -50,8 +50,6 @@ class SearchViewModel @Inject constructor(
 
     fun onEvent(event: SearchScreenEvent) {
         when (event) {
-            SearchScreenEvent.OnFavIconClicked -> TODO()
-            SearchScreenEvent.OnRepoClicked -> TODO()
 
             is SearchScreenEvent.OnSearchQueryChange -> {
                 val isNotSameQuery = state.searchQuery != event.query

@@ -9,7 +9,7 @@ import com.example.juniorandroiddevelopertask.utils.Constants.REPO_PAGINATION_PA
 @Dao
 interface GitHubRepoDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepos(entities: List<GithubRepoEntity>)
 
     @Query("DELETE FROM GithubRepoEntity")
@@ -38,4 +38,16 @@ interface GitHubRepoDao {
     @Query("SELECT * FROM GithubRepoEntity WHERE repo_id = :id")
     suspend fun getRepoById(id: Int): GithubRepoEntity?
 
+
+//    @Query("""
+//        SELECT * FROM GithubRepoEntity
+//        WHERE isFav = 1
+//         LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
+//        """)
+//
+//    suspend fun getFavRepos(
+//        isFave: Boolean,
+//        page: Int,
+//        pageSize: Int = REPO_PAGINATION_PAGE_SIZE
+//    ): List<GithubRepoEntity>
 }

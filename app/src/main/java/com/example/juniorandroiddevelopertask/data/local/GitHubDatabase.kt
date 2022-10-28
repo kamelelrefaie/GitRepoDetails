@@ -3,7 +3,7 @@ package com.example.juniorandroiddevelopertask.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [GithubRepoEntity::class ], version = 1)
+@Database(entities = [GithubRepoEntity::class ], version = 2)
 abstract class GitHubDatabase: RoomDatabase() {
 
     abstract fun gitHubDao(): GitHubRepoDao

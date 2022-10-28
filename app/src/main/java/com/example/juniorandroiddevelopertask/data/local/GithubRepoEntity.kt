@@ -13,7 +13,7 @@ data class GithubRepoEntity(
     val repo_name: String,
     val avatar_url: String,
     val login: String,
-
+    val isFav:Boolean=false,
     // get from api
     @PrimaryKey(autoGenerate = false)
     val repo_id: Int

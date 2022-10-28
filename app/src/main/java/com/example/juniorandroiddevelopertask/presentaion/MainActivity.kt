@@ -11,6 +11,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.juniorandroiddevelopertask.presentaion.navigation.SetupNavGraph
 import com.example.juniorandroiddevelopertask.presentaion.theme.Grey
 import com.example.juniorandroiddevelopertask.presentaion.theme.JuniorAndroidDeveloperTaskTheme
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.SearchScreen
@@ -31,13 +33,14 @@ class MainActivity : ComponentActivity() {
             val status by connectivityManager.observe().collectAsState(
                 initial = false
             )
+            val navHostController = rememberNavController()
             JuniorAndroidDeveloperTaskTheme(isNetworkAvailable = status) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Grey
                 ) {
-                    SearchScreen()
+                    SetupNavGraph(navHostController = navHostController)
                 }
             }
         }

@@ -11,7 +11,7 @@ fun Item.toGithubEntity(): GithubRepoEntity {
         open_issues_count = open_issues_count,
         forks_count = forks_count,
         stargazers_count = stargazers_count,
-        description = description?: "",
+        description = description ?: "",
         repo_name = name,
         avatar_url = owner.avatar_url, login = owner.login,
         repo_id = id
@@ -27,6 +27,26 @@ fun GithubRepoEntity.toRep(): Repo {
         description = description,
         repoName = repo_name,
         avatarUrl = avatar_url,
-        username = login
+        username = login,
+        isFav = isFav,
+        repoId = repo_id
     )
+
+
+}
+
+fun Repo.toGithubRepoEntity(): GithubRepoEntity {
+
+    return GithubRepoEntity(
+        open_issues_count = issuesCount,
+        forks_count = forksCount,
+        stargazers_count = stargazersCount,
+        description = description ?: "",
+        repo_name = repoName,
+        avatar_url = avatarUrl, login = username,
+        isFav = isFav,
+        repo_id = repoId
+
+    )
+
 }

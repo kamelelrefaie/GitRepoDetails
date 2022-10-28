@@ -9,4 +9,6 @@ interface GitHubRepo {
         page: Int,
         query: String
     ): Flow<Resource<List<Repo>>>
+
+     fun getRepoItem(repoId:Int) : Flow<Resource<Repo>>
 }

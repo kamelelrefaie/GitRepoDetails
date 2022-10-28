@@ -20,7 +20,6 @@ class GitHubRepoImpl @Inject constructor(
 ) : GitHubRepo {
     private val dao = db.gitHubDao()
     override fun searchRepos(page: Int, query: String): Flow<Resource<List<Repo>>> = flow {
-
         try {
             emit(Resource.Loading())
             try {
@@ -64,25 +63,23 @@ class GitHubRepoImpl @Inject constructor(
         }
 
     }
+
+    override fun getRepoItem(repoId: Int): Flow<Resource<Repo>> = flow {
+        try {
+            emit(Resource.Loading())
+            // get Cached
+            val cacheResult = dao.getRepoById(repoId)
+
+            cacheResult?.let {
+                emit(Resource.Success(it.toRep()))
+            } ?: emit(Resource.Error("not found"))
+
+
+        } catch (e: Exception) {
+            emit(Resource.Error(e.message ?: "Unknown Error"))
+        }
+    }
+
+
 }
 
-/*
-try {
-
-
-
-  // WARNING: This will throw exception if there is no network connection
-  private suspend fun getRecipesFromNetwork(
-      token: String,
-      page: Int,
-      query: String
-  ): List<Recipe> {
-    return dtoMapper.toDomainList(
-        recipeService.search(
-            token = token,
-            page = page,
-            query = query,
-        ).recipes
-    )
-  }
- */

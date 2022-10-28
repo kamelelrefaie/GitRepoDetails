@@ -20,7 +20,7 @@ import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.compo
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.components.SearchTopBar
 
 @Composable
-fun SearchScreen(navHostController: NavHostController = rememberNavController()) {
+fun SearchScreen(navHostController: NavHostController) {
     val viewModel: SearchViewModel = hiltViewModel()
     val state = viewModel.state
     Column(modifier = Modifier.fillMaxSize()) {

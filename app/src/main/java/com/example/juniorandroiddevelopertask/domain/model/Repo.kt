@@ -7,5 +7,7 @@ data class Repo(
     val description: String,
     val repoName: String,
     val avatarUrl: String,
-    val username: String
+    val username: String,
+    val isFav:Boolean,
+    val repoId : Int
 )
