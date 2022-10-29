@@ -32,6 +32,7 @@ QR Scan or Edit Text
 
 ## Demo
 using qr while the app is offline
+
 https://user-images.githubusercontent.com/52335429/198836931-ee781b16-3d18-46c7-9a69-0714c466997c.mp4
 
 
