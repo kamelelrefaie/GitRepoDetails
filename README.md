@@ -35,6 +35,9 @@ using qr while the app is offline
 
 https://user-images.githubusercontent.com/52335429/198836931-ee781b16-3d18-46c7-9a69-0714c466997c.mp4
 
+ <img src="https://user-images.githubusercontent.com/52335429/198837961-757f59de-6588-4af9-bb87-b9c18b93c5c4.jpeg" alt="Image" width="250" /> <img src="https://user-images.githubusercontent.com/52335429/198837971-b0713e5f-30aa-4b06-8c8e-7f8519f96cec.jpeg" alt="Image" width="250" />
+
+
 
 ## ToDo
 - Testing :telescope:
