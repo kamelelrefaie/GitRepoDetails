@@ -1,7 +1,7 @@
 package com.example.juniorandroiddevelopertask.di
 
-import com.example.juniorandroiddevelopertask.data.repository.GitHubRepoImpl
-import com.example.juniorandroiddevelopertask.domain.repository.GitHubRepo
+import com.example.juniorandroiddevelopertask.data.repository.RepositoryImpl
+import com.example.juniorandroiddevelopertask.domain.repository.Repository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Singleton
     @Binds
-    abstract fun bindingRepository(gitHubRepoImpl: GitHubRepoImpl): GitHubRepo
+    abstract fun bindingRepository(gitHubRepoImpl: RepositoryImpl): Repository
 }

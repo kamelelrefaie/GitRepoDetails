@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.juniorandroiddevelopertask.domain.model.Repo
+import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
 import com.example.juniorandroiddevelopertask.presentaion.navigation.Screen
 import com.example.juniorandroiddevelopertask.presentaion.theme.*
 
@@ -27,7 +27,7 @@ val bgColorList = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepoItem(repo: Repo, navController: NavHostController = rememberNavController()) {
+fun RepoItem(repo: GitHubRepo, navController: NavHostController = rememberNavController()) {
     Card(
         shape = RoundedCornerShape(14.dp),
         modifier = Modifier

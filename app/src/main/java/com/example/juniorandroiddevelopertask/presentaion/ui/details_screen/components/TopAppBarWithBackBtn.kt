@@ -17,7 +17,12 @@ import androidx.compose.ui.unit.sp
 import com.example.juniorandroiddevelopertask.presentaion.theme.paledark
 
 @Composable
-fun TopBarWithBack(title: String, onBackClick: () -> Unit, onFavClicked: () -> Unit,isFav:Boolean) {
+fun TopBarWithBack(
+    title: String,
+    onBackClick: () -> Unit,
+    onFavClicked: () -> Unit,
+    isFav: Boolean
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

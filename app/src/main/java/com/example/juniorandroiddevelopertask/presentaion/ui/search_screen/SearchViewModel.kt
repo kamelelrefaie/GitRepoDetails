@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.juniorandroiddevelopertask.data.paging.DefaultPaginator
-import com.example.juniorandroiddevelopertask.domain.repository.GitHubRepo
-import com.example.juniorandroiddevelopertask.utils.Resource
+import com.example.juniorandroiddevelopertask.domain.repository.Repository
+import com.example.juniorandroiddevelopertask.presentaion.navigation.SEARCH_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,11 +18,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val repository: GitHubRepo
+    private val repository: Repository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+
 
     var state by mutableStateOf(SearchState())
         private set
+
 
     private var searchJob: Job? = null
 
@@ -47,6 +52,14 @@ class SearchViewModel @Inject constructor(
             )
         }
     )
+
+    init {
+        val saved = savedStateHandle.get<String>(SEARCH_QUERY)
+        saved?.let {
+            onEvent(SearchScreenEvent.OnSearchQueryChange(it))
+        }
+
+    }
 
     fun onEvent(event: SearchScreenEvent) {
         when (event) {

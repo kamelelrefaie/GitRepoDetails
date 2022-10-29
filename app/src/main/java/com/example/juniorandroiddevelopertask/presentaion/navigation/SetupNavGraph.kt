@@ -9,6 +9,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.juniorandroiddevelopertask.presentaion.ui.camera_screen.CameraScreen
 import com.example.juniorandroiddevelopertask.presentaion.ui.details_screen.DetailScreen
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.SearchScreen
 
@@ -16,7 +17,10 @@ import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.Searc
 fun SetupNavGraph(navHostController: NavHostController) {
     NavHost(navController = navHostController, startDestination = Screen.SearchScreen.route ){
 
-        composable(route = Screen.SearchScreen.route){
+        composable(route = Screen.SearchScreen.route, arguments = listOf(navArgument(name = SEARCH_QUERY){
+            nullable
+            type = NavType.StringType
+        })){
             SearchScreen(navHostController)
         }
 
@@ -29,6 +33,9 @@ fun SetupNavGraph(navHostController: NavHostController) {
 
         composable(route = Screen.FavList.route){
 
+        }
+        composable(route = Screen.CameraScreen.route){
+             CameraScreen(navController = navHostController)
         }
     }
 

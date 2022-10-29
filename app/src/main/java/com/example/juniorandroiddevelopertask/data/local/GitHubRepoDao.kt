@@ -10,12 +10,12 @@ import com.example.juniorandroiddevelopertask.utils.Constants.REPO_PAGINATION_PA
 interface GitHubRepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRepos(entities: List<GithubRepoEntity>)
+    suspend fun insertRepos(entities: List<GitHubRepoEntity>)
 
-    @Query("DELETE FROM GithubRepoEntity")
+    @Query("DELETE FROM GitHubRepoEntity")
     suspend fun deleteAllRepos()
 
-    @Query("DELETE FROM GithubRepoEntity WHERE repo_name LIKE '%' || :query || '%'")
+    @Query("DELETE FROM GitHubRepoEntity WHERE repo_name LIKE '%' || :query || '%'")
     suspend fun deleteRepoWithQuery(query:String)
 
     /**
@@ -23,20 +23,22 @@ interface GitHubRepoDao {
      * Ex: page = 2 retrieves recipes from 10-20.
      * Ex: page = 3 retrieves recipes from 20-30
      */
-    @Query("""
-        SELECT * FROM GithubRepoEntity 
+    @Query(
+        """
+        SELECT * FROM GitHubRepoEntity 
         WHERE repo_name LIKE '%' || :query || '%'
          LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
-        """)
+        """
+    )
 
     suspend fun searchRepos(
         query: String,
         page: Int,
         pageSize: Int = REPO_PAGINATION_PAGE_SIZE
-    ): List<GithubRepoEntity>
+    ): List<GitHubRepoEntity>
 
-    @Query("SELECT * FROM GithubRepoEntity WHERE repo_id = :id")
-    suspend fun getRepoById(id: Int): GithubRepoEntity?
+    @Query("SELECT * FROM GitHubRepoEntity WHERE repo_id = :id")
+    suspend fun getRepoById(id: Int): GitHubRepoEntity?
 
 
 //    @Query("""

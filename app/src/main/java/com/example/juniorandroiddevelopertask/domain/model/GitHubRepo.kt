@@ -1,6 +1,6 @@
 package com.example.juniorandroiddevelopertask.domain.model
 
-data class Repo(
+data class GitHubRepo(
     val issuesCount: Int,
     val forksCount: Int,
     val stargazersCount: Int,

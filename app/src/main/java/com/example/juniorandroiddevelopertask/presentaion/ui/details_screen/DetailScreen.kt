@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.juniorandroiddevelopertask.domain.model.Repo
+import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
 import com.example.juniorandroiddevelopertask.presentaion.ui.details_screen.components.RepoDetailContent
 import com.example.juniorandroiddevelopertask.presentaion.ui.details_screen.components.RepoDetailDescription
 import com.example.juniorandroiddevelopertask.presentaion.ui.details_screen.components.RepoUsernameAvatar
@@ -50,7 +50,7 @@ fun DetailScreen(
 }
 
 @Composable
-fun Content(repo: Repo) {
+fun Content(repo: GitHubRepo) {
     Column() {
         Spacer(modifier = Modifier.height(20.dp))
         RepoUsernameAvatar(repo.avatarUrl)

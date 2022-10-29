@@ -1,9 +1,9 @@
 package com.example.juniorandroiddevelopertask.presentaion.ui.search_screen
 
-import com.example.juniorandroiddevelopertask.domain.model.Repo
+import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
 
 data class SearchState(
-    val repos: List<Repo> = emptyList(),
+    val repos: List<GitHubRepo> = emptyList(),
     val isLoading: Boolean = false,
     val searchQuery: String = "",
     val error: String? = null,

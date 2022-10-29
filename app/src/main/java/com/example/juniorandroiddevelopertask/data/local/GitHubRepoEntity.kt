@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class GithubRepoEntity(
+data class GitHubRepoEntity(
     val open_issues_count: Int,
     val forks_count: Int,
     val stargazers_count: Int,

@@ -1,13 +1,12 @@
 package com.example.juniorandroiddevelopertask.data.mapper
 
-import com.example.juniorandroiddevelopertask.data.local.GithubRepoEntity
-import com.example.juniorandroiddevelopertask.data.remote.dto.GitHubDto
+import com.example.juniorandroiddevelopertask.data.local.GitHubRepoEntity
 import com.example.juniorandroiddevelopertask.data.remote.dto.Item
-import com.example.juniorandroiddevelopertask.domain.model.Repo
+import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
 
-fun Item.toGithubEntity(): GithubRepoEntity {
+fun Item.toGithubEntity(): GitHubRepoEntity {
 
-    return GithubRepoEntity(
+    return GitHubRepoEntity(
         open_issues_count = open_issues_count,
         forks_count = forks_count,
         stargazers_count = stargazers_count,
@@ -19,8 +18,8 @@ fun Item.toGithubEntity(): GithubRepoEntity {
 
 }
 
-fun GithubRepoEntity.toRep(): Repo {
-    return Repo(
+fun GitHubRepoEntity.toRep(): GitHubRepo {
+    return GitHubRepo(
         issuesCount = open_issues_count,
         forksCount = forks_count,
         stargazersCount = stargazers_count,
@@ -35,9 +34,9 @@ fun GithubRepoEntity.toRep(): Repo {
 
 }
 
-fun Repo.toGithubRepoEntity(): GithubRepoEntity {
+fun GitHubRepo.toGithubRepoEntity(): GitHubRepoEntity {
 
-    return GithubRepoEntity(
+    return GitHubRepoEntity(
         open_issues_count = issuesCount,
         forks_count = forksCount,
         stargazers_count = stargazersCount,

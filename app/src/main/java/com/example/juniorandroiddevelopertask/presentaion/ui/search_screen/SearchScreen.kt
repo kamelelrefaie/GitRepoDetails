@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.juniorandroiddevelopertask.presentaion.navigation.Screen
+import com.example.juniorandroiddevelopertask.presentaion.ui.camera_screen.CameraScreen
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.components.RepoItem
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.components.SearchInputComponent
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.components.SearchTopBar
@@ -23,11 +25,14 @@ import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.compo
 fun SearchScreen(navHostController: NavHostController) {
     val viewModel: SearchViewModel = hiltViewModel()
     val state = viewModel.state
+
     Column(modifier = Modifier.fillMaxSize()) {
         SearchTopBar(navHostController)
         SearchInputComponent(searchValue = state.searchQuery, onSearchValueChange = {
             viewModel.onEvent(SearchScreenEvent.OnSearchQueryChange(it))
-        }, onQrClick = {})
+        }, onQrClick = {
+            navHostController.navigate(Screen.CameraScreen.route)
+        })
 
         AnimatedVisibility(visible = state.searchQuery.isEmpty()) {
            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

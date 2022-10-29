@@ -5,8 +5,8 @@ import com.example.juniorandroiddevelopertask.data.local.GitHubDatabase
 import com.example.juniorandroiddevelopertask.data.mapper.toGithubEntity
 import com.example.juniorandroiddevelopertask.data.mapper.toRep
 import com.example.juniorandroiddevelopertask.data.remote.GitHubRepoApi
-import com.example.juniorandroiddevelopertask.domain.model.Repo
-import com.example.juniorandroiddevelopertask.domain.repository.GitHubRepo
+import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
+import com.example.juniorandroiddevelopertask.domain.repository.Repository
 import com.example.juniorandroiddevelopertask.utils.Constants.NAME_QUALIFIER
 import com.example.juniorandroiddevelopertask.utils.Constants.REPO_PAGINATION_PAGE_SIZE
 import com.example.juniorandroiddevelopertask.utils.Resource
@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GitHubRepoImpl @Inject constructor(
+class RepositoryImpl @Inject constructor(
     db: GitHubDatabase,
     private val api: GitHubRepoApi
-) : GitHubRepo {
+) : Repository {
     private val dao = db.gitHubDao()
-    override fun searchRepos(page: Int, query: String): Flow<Resource<List<Repo>>> = flow {
+    override fun searchRepos(page: Int, query: String): Flow<Resource<List<GitHubRepo>>> = flow {
         try {
             emit(Resource.Loading())
             try {
@@ -64,7 +64,7 @@ class GitHubRepoImpl @Inject constructor(
 
     }
 
-    override fun getRepoItem(repoId: Int): Flow<Resource<Repo>> = flow {
+    override fun getRepoItem(repoId: Int): Flow<Resource<GitHubRepo>> = flow {
         try {
             emit(Resource.Loading())
             // get Cached
