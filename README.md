@@ -23,8 +23,9 @@ QR Scan or Edit Text
 
 - Details screen that shows the repository details
 
-- Favourite Screen : to show all liked repos
+- Saved Screen : to show all Saved repos  :heart:	
 
+- Splash Screen
 
     
 
@@ -39,7 +40,5 @@ https://user-images.githubusercontent.com/52335429/198836931-ee781b16-3d18-46c7-
 
 
 
-## ToDo
-- Testing :telescope:
-- Favourite Screen :heart:	
-- Splash Screen
+
+
