@@ -16,7 +16,7 @@ interface GitHubRepoDao {
     suspend fun deleteAllRepos()
 
     @Query("DELETE FROM GitHubRepoEntity WHERE repo_name LIKE '%' || :query || '%'")
-    suspend fun deleteRepoWithQuery(query:String)
+    suspend fun deleteRepoWithQuery(query: String)
 
     /**
      * Retrieve repos for a particular page.
@@ -27,10 +27,9 @@ interface GitHubRepoDao {
         """
         SELECT * FROM GitHubRepoEntity 
         WHERE repo_name LIKE '%' || :query || '%'
-         LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
+         LIMIT :pageSize OFFSET ((:page ) * :pageSize)
         """
     )
-
     suspend fun searchRepos(
         query: String,
         page: Int,
@@ -39,17 +38,41 @@ interface GitHubRepoDao {
 
     @Query("SELECT * FROM GitHubRepoEntity WHERE repo_id = :id")
     suspend fun getRepoById(id: Int): GitHubRepoEntity?
+/*
+liked repo entity
+ */
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertGitHubSavedRepoEntity(savedRepoEntity: GitHubSavedRepoEntity)
 
-//    @Query("""
-//        SELECT * FROM GithubRepoEntity
-//        WHERE isFav = 1
-//         LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
-//        """)
-//
-//    suspend fun getFavRepos(
-//        isFave: Boolean,
-//        page: Int,
-//        pageSize: Int = REPO_PAGINATION_PAGE_SIZE
-//    ): List<GithubRepoEntity>
+    @Query("DELETE FROM GitHubSavedRepoEntity WHERE repo_id = :id")
+    suspend fun deleteSavedRepoEntity(id: Int)
+
+    @Query(
+        """
+        SELECT * FROM GitHubSavedRepoEntity
+         LIMIT :pageSize OFFSET ((:page ) * :pageSize)
+        """
+    )
+    suspend fun getSavedRepos(
+        page: Int,
+        pageSize: Int = REPO_PAGINATION_PAGE_SIZE
+    ): List<GitHubSavedRepoEntity>
+
+    @Query(
+        """
+        SELECT * FROM GitHubSavedRepoEntity
+        WHERE isFav = :isFav
+         LIMIT :pageSize OFFSET ((:page ) * :pageSize)
+        """
+    )
+    suspend fun getLovedRepos(
+        isFav: Boolean = true,
+        page: Int,
+        pageSize: Int = REPO_PAGINATION_PAGE_SIZE
+    ): List<GitHubSavedRepoEntity>
+
+    @Query("SELECT * FROM GitHubSavedRepoEntity WHERE repo_id = :id")
+    suspend fun getSavedRepoById(id: Int): GitHubSavedRepoEntity?
+
 }

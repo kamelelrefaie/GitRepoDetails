@@ -1,5 +1,6 @@
 package com.example.juniorandroiddevelopertask.presentaion.ui.details_screen
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,8 +12,8 @@ import com.example.juniorandroiddevelopertask.presentaion.navigation.REPO_ID
 import com.example.juniorandroiddevelopertask.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,31 +24,121 @@ class DetailsViewModel @Inject constructor(
     var state by mutableStateOf(DetailsScreenState())
         private set
 
+    private val _eventFlow = MutableSharedFlow<UiEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
+
     init {
         val id = savedStateHandle.get<Int>(REPO_ID)
         state = state.copy(isLoading = true)
+
         id?.let {
-           getRepoItem(it)
+            getRepoItem(it)
+            getLikedRepo(it)
         }
+
     }
 
-    private fun getRepoItem(repoId: Int) {
-        val repoItem = repo.getRepoItem(repoId)
-        repoItem.onEach {
-            delay(500L)
+    private fun getLikedRepo(id: Int) {
+
+        val lovedRepo = repo.getSavedRepoById(id)
+
+        lovedRepo.onEach {
             state = when (it) {
                 is Resource.Error -> {
-                    state.copy(isLoading = false, error = it.message)
+                    state.copy(isSaved = false, isLiked = false, isLoading = false)
                 }
-                is Resource.Loading -> {
-                    state.copy(isLoading = true)
-                }
+                is Resource.Loading -> state.copy(isLoading = true)
                 is Resource.Success -> {
-                    state.copy(repos = it.data,isLoading = false)
+                    state.copy(isSaved = true, isLiked = it.data!!.isFav, isLoading = false)
                 }
             }
         }.launchIn(viewModelScope)
     }
 
+    fun onEvent(event: DetailsScreenEvent) {
+        when (event) {
+
+            DetailsScreenEvent.OnSavedBtnClicked -> {
+                insertGitHubSavedRepoEntity(toastMsg = "Saved Successfully")
+
+            }
+            DetailsScreenEvent.OnUndoBtnClicked -> {
+                deleteSavedRepoEntity()
+
+            }
+            DetailsScreenEvent.OnLovedBtnClicked -> {
+                insertGitHubSavedRepoEntity(true, "added to favourites")
+            }
+            DetailsScreenEvent.OnUnLovedBtnClicked -> {
+                insertGitHubSavedRepoEntity(toastMsg = "Removed From Favourites")
+            }
+        }
+    }
+
+    private fun deleteSavedRepoEntity() {
+        viewModelScope.launch {
+            repo.deleteSavedRepoEntity(state.repos!!.repoId)
+            _eventFlow.emit(UiEvent.ShowSnackBar("Repository Deleted SuccessFully"))
+            getLikedRepo(state.repos!!.repoId)
+        }
+
+    }
+
+    private fun insertGitHubSavedRepoEntity(isFav: Boolean = false, toastMsg: String) {
+        viewModelScope.launch {
+            repo.insertGitHubSavedRepoEntity(state.repos!!.copy(isFav = isFav))
+            _eventFlow.emit(UiEvent.ShowSnackBar(toastMsg))
+            getLikedRepo(state.repos!!.repoId)
+        }
+
+    }
+
+    private fun getRepoItem(repoId: Int) {
+        val repoItemFromPagination = repo.getRepoItem(repoId)
+        viewModelScope.launch {
+            repoItemFromPagination.onEach {
+                delay(500L)
+                when (it) {
+                    is Resource.Error -> {
+                        state = state.copy(isLoading = false, error = it.message)
+                    }
+                    is Resource.Loading -> {
+                        state = state.copy(isLoading = true)
+                    }
+                    is Resource.Success -> {
+                        state = state.copy(repos = it.data, isLoading = false)
+                    }
+                }
+            }.launchIn(viewModelScope)
+
+
+        }
+
+        state.repos.let {
+            val repoItem = repo.getSavedRepoById(repoId)
+            viewModelScope.launch {
+                repoItem.onEach {
+                    delay(500L)
+                    when (it) {
+                        is Resource.Error -> {
+                            state = state.copy(isLoading = false, error = it.message)
+                        }
+                        is Resource.Loading -> {
+                            state = state.copy(isLoading = true)
+                        }
+                        is Resource.Success -> {
+                            state = state.copy(repos = it.data, isLoading = false)
+                        }
+                    }
+                }.launchIn(viewModelScope)
+            }
+        }
+
+
+    }
+
+    sealed class UiEvent {
+        data class ShowSnackBar(val message: String) : UiEvent()
+    }
 
 }

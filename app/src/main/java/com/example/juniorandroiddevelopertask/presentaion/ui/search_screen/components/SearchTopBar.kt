@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.juniorandroiddevelopertask.R
+import com.example.juniorandroiddevelopertask.presentaion.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,8 +52,8 @@ fun SearchTopBar(navHostController: NavHostController) {
             }
         }
 
-        BadgedBox(badge = { Badge() },Modifier.clickable {
-           //navigatie
+        BadgedBox(badge = { Badge() }, Modifier.clickable {
+            navHostController.navigate(Screen.SaveListScreen.route)
         }) {
             Icon(
                 Icons.Default.Favorite,
@@ -66,7 +67,7 @@ fun SearchTopBar(navHostController: NavHostController) {
 @Composable
 fun PreviewSearchTopBar() {
     MaterialTheme {
-     //   SearchTopBar()
+        //   SearchTopBar()
     }
 }
 

@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.juniorandroiddevelopertask.presentaion.navigation.SetupNavGraph
 import com.example.juniorandroiddevelopertask.presentaion.theme.Grey
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+       installSplashScreen()
         setContent {
             val status by connectivityManager.observe().collectAsState(
                 initial = false

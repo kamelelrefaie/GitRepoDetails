@@ -11,7 +11,7 @@ interface GitHubRepoApi {
     suspend fun getReposFromNetwork(
         @Query("q") query: String,
         @Query("page") page: Int,
-        @Query("per_page") pageSize: Int = REPO_PAGINATION_PAGE_SIZE + 10
+        @Query("per_page") pageSize: Int = REPO_PAGINATION_PAGE_SIZE + 30
     ): GitHubDto
 
     companion object {

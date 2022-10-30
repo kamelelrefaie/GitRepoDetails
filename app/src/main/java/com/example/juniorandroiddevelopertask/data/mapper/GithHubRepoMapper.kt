@@ -1,6 +1,7 @@
 package com.example.juniorandroiddevelopertask.data.mapper
 
 import com.example.juniorandroiddevelopertask.data.local.GitHubRepoEntity
+import com.example.juniorandroiddevelopertask.data.local.GitHubSavedRepoEntity
 import com.example.juniorandroiddevelopertask.data.remote.dto.Item
 import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
 
@@ -27,25 +28,40 @@ fun GitHubRepoEntity.toRep(): GitHubRepo {
         repoName = repo_name,
         avatarUrl = avatar_url,
         username = login,
-        isFav = isFav,
         repoId = repo_id
     )
 
 
 }
 
-fun GitHubRepo.toGithubRepoEntity(): GitHubRepoEntity {
+fun GitHubRepo.toGithubRepoEntity(): GitHubSavedRepoEntity {
 
-    return GitHubRepoEntity(
+    return GitHubSavedRepoEntity(
         open_issues_count = issuesCount,
         forks_count = forksCount,
         stargazers_count = stargazersCount,
         description = description ?: "",
         repo_name = repoName,
-        avatar_url = avatarUrl, login = username,
         isFav = isFav,
+        avatar_url = avatarUrl, login = username,
         repo_id = repoId
-
     )
+
+}
+
+
+fun GitHubSavedRepoEntity.toGitHubRepo(): GitHubRepo {
+    return GitHubRepo(
+        issuesCount = open_issues_count,
+        forksCount = forks_count,
+        stargazersCount = stargazers_count,
+        description = description,
+        repoName = repo_name,
+        avatarUrl = avatar_url,
+        isFav = isFav,
+        username = login,
+        repoId = repo_id
+    )
+
 
 }

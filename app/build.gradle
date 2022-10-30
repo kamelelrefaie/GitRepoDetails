@@ -63,9 +63,11 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
-
     //compose more icons
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+
+    //splash api for 12 > version
+    implementation 'androidx.core:core-splashscreen:1.0.0'
 
     // Pref DataStore
     //implementation "androidx.datastore:datastore-preferences:1.0.0"

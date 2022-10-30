@@ -22,8 +22,6 @@ class SearchViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-
-
     var state by mutableStateOf(SearchState())
         private set
 
@@ -54,6 +52,7 @@ class SearchViewModel @Inject constructor(
     )
 
     init {
+        //get id from scanner
         val saved = savedStateHandle.get<String>(SEARCH_QUERY)
         saved?.let {
             onEvent(SearchScreenEvent.OnSearchQueryChange(it))

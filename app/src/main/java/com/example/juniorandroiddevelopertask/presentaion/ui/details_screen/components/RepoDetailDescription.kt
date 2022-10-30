@@ -1,5 +1,7 @@
 package com.example.juniorandroiddevelopertask.presentaion.ui.details_screen.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -13,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
+import com.example.juniorandroiddevelopertask.presentaion.navigation.Screen
 import com.example.juniorandroiddevelopertask.presentaion.theme.paledark
+import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.components.bgColorList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,16 +66,17 @@ fun RepoDetailDescription(repo: GitHubRepo) {
 
     }
     Spacer(modifier = Modifier.padding(5.dp))
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(
-            text = repo.description,
-            fontSize = 18.sp,
-            color = paledark
-        )
-    }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center) {
+            Text(
+                text = repo.description,
+                fontSize = 18.sp,
+                color = paledark
+            )
+        }
+
+
 }
 

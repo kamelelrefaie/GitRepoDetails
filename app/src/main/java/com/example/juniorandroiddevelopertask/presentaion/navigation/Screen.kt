@@ -16,7 +16,7 @@ sealed class Screen(val route: String) {
         }
     }
 
-    object FavList : Screen("favList")
+    object SaveListScreen : Screen("favList")
     object CameraScreen : Screen("cameraScreen")
 
 }

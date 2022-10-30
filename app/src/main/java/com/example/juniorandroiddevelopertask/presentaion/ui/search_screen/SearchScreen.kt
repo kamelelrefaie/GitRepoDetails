@@ -53,12 +53,10 @@ fun SearchScreen(navHostController: NavHostController) {
                     viewModel.onEvent(SearchScreenEvent.OnSearchQueryChange(state.searchQuery))
                 }
 
-
                 val item = state.repos[it]
                 RepoItem(item, navHostController)
 
             }
-
             item {
                 AnimatedVisibility(visible = state.isLoading) {
                     Row(

@@ -7,7 +7,7 @@ data class GitHubRepo(
     val description: String,
     val repoName: String,
     val avatarUrl: String,
+    val isFav:Boolean = false,
     val username: String,
-    val isFav:Boolean,
     val repoId : Int
 )
