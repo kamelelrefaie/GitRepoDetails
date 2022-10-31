@@ -35,7 +35,6 @@ class DefaultPaginator<Key, Item>(
                 is Resource.Loading ->  onLoadUpdated(true)
 
                 is Resource.Success -> {
-                    Log.e("pagenumber", "$currentKey")
                     currentKey = getNextKey(it.data!!)
                     onSuccess(it.data, currentKey)
                     onLoadUpdated(false)

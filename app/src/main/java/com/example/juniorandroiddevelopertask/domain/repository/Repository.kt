@@ -12,7 +12,6 @@ interface Repository {
 
     fun getRepoItem(repoId: Int): Flow<Resource<GitHubRepo>>
     fun getSavedRepoById(repoId: Int): Flow<Resource<GitHubRepo>>
-
     suspend fun insertGitHubSavedRepoEntity(repo: GitHubRepo)
     suspend fun deleteSavedRepoEntity(id: Int)
     fun getSavedRepos(page: Int): Flow<Resource<List<GitHubRepo>>>
