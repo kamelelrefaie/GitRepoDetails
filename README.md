@@ -1,44 +1,53 @@
 
-# Junior Task
+<img src="https://th.bing.com/th/id/OIP.Sfgbqcg35rCru0YB-IQwxgHaD4?pid=ImgDet&rs=1"/>
 
+# GitHubRepo
+ ***GitHubRepo application Built with Clean architecture and Jetpack component (Jetpack Compose, MVI , Paging
+, HILT :syringe:, ROOM DB :floppy_disk:, Retrofit, connectity manager :heavy_check_mark: , and many more …).***
 
-
-## Tech Stack
-
-- Jetpack compose MVI + Clean Architecture 
-- connectity manager to check internet connection :heavy_check_mark:	
-- Repository Pattern 
-- Dependency injection using *hilt* :syringe:
-- offline caching using **Room**  as single source of truth :floppy_disk:	
-- Network Call using **Retrofit**
-
+#### <br/><br/>App link 👇
+[![GitHubRepo](https://img.shields.io/badge/GitHubRepo-APK-blue)](https://drive.google.com/file/d/17Pepi6GXcn6ug8IV8blDUF6-Y4aky-dW/view?usp=share_link)
 
 
 ## Features
 
--A search screen where the user can search for repositories and list all Github repositories that match the search criteria throught : 
+- A search screen where the user can search for repositories and list all Github repositories that match the search criteria through : 
 QR Scan or Edit Text
 
     But if number of forks > 50 the card background will be green :green_heart:	
 
-- Details screen that shows the repository details
+- Details screen that shows the repository details , you can save a repo or add it to your favourits
 
-- Saved Screen : to show all Saved repos  :heart:	
- You can add your fav repo to saved repos
+- Saved Screen : to show all Saved/liked repos  :heart: 
+   
 - Splash Screen
 
-    
+    ## Clean Architecture Layers.
 
+### 1. Domain.
+### 2. Data.
+### 3. Presentation.
 
-
+ 
 ## Demo
-using qr while the app is offline
+using QR while the app is offline
 
 https://user-images.githubusercontent.com/52335429/198836931-ee781b16-3d18-46c7-9a69-0714c466997c.mp4
 
- <img src="https://user-images.githubusercontent.com/52335429/198837961-757f59de-6588-4af9-bb87-b9c18b93c5c4.jpeg" alt="Image" width="250" /> <img src="https://user-images.githubusercontent.com/52335429/198837971-b0713e5f-30aa-4b06-8c8e-7f8519f96cec.jpeg" alt="Image" width="250" /> <img src="https://user-images.githubusercontent.com/52335429/198901533-9783c558-f7a3-45f2-be9f-5324be21814a.jpg" alt="Image" width="250" />
+## Search And Details Screen
 
-<img src="https://user-images.githubusercontent.com/52335429/198901534-b06f89ad-d450-4b6c-beca-16dc12a0cc82.jpg" alt="Image" width="250" /> <img src="https://user-images.githubusercontent.com/52335429/198901536-d949dc87-6a8c-4b07-9731-06c2c7e304a5.jpg "  alt="Image" width="250" /><img src="https://user-images.githubusercontent.com/52335429/198901535-662e49fc-2be3-4860-889b-2fd57a597974.jpg"  alt="Image" width="250" />
+<img src="https://user-images.githubusercontent.com/52335429/198837971-b0713e5f-30aa-4b06-8c8e-7f8519f96cec.jpeg" alt="Image" width="250" /> <img src="https://user-images.githubusercontent.com/52335429/198901535-662e49fc-2be3-4860-889b-2fd57a597974.jpg"  alt="Image" width="250" />
 
+## Saved And Liked Repo
+
+ 
+ <img src="https://user-images.githubusercontent.com/52335429/199008849-6b1822b5-50a2-4cc5-96e7-80a7dfcca2a9.jpg" alt="Image" width="250" />  <img src="https://user-images.githubusercontent.com/52335429/199008878-5bd1295a-9663-4512-8c9c-ce2b567ba3e4.jpg" alt="Image" width="250" />
+
+
+<img src="https://user-images.githubusercontent.com/52335429/198901536-d949dc87-6a8c-4b07-9731-06c2c7e304a5.jpg "  alt="Image" width="250" /> <img src="https://user-images.githubusercontent.com/52335429/198901534-b06f89ad-d450-4b6c-beca-16dc12a0cc82.jpg" alt="Image" width="250" /> 
+
+## Testing
+
+perform testing on Database Dao only BUT the other components is ready for testing because of using Clean Architecture
 
 
