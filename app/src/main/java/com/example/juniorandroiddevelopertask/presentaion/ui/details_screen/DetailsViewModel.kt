@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.juniorandroiddevelopertask.domain.model.GitHubRepo
 import com.example.juniorandroiddevelopertask.domain.repository.Repository
 import com.example.juniorandroiddevelopertask.presentaion.navigation.REPO_ID
 import com.example.juniorandroiddevelopertask.utils.Resource
@@ -39,39 +40,27 @@ class DetailsViewModel @Inject constructor(
     }
 
     private fun getLikedRepo(id: Int) {
-
         val lovedRepo = repo.getSavedRepoById(id)
 
         lovedRepo.onEach {
             state = when (it) {
-                is Resource.Error -> {
-                    state.copy(isSaved = false, isLiked = false, isLoading = false)
-                }
+                is Resource.Error -> state.copy(isSaved = false, isLiked = false, isLoading = false)
                 is Resource.Loading -> state.copy(isLoading = true)
-                is Resource.Success -> {
-                    state.copy(isSaved = true, isLiked = it.data!!.isFav, isLoading = false)
-                }
+                is Resource.Success -> state.copy(isSaved = true, isLiked = it.data!!.isFav, isLoading = false)
             }
         }.launchIn(viewModelScope)
     }
 
+
     fun onEvent(event: DetailsScreenEvent) {
         when (event) {
-
-            DetailsScreenEvent.OnSavedBtnClicked -> {
-                insertGitHubSavedRepoEntity(toastMsg = "Saved Successfully")
-
-            }
-            DetailsScreenEvent.OnUndoBtnClicked -> {
-                deleteSavedRepoEntity()
-
-            }
-            DetailsScreenEvent.OnLovedBtnClicked -> {
-                insertGitHubSavedRepoEntity(true, "added to favourites")
-            }
-            DetailsScreenEvent.OnUnLovedBtnClicked -> {
-                insertGitHubSavedRepoEntity(toastMsg = "Removed From Favourites")
-            }
+            DetailsScreenEvent.OnSavedBtnClicked -> insertGitHubSavedRepoEntity(toastMsg = "Saved Successfully")
+            DetailsScreenEvent.OnUndoBtnClicked -> deleteSavedRepoEntity()
+            DetailsScreenEvent.OnLovedBtnClicked -> insertGitHubSavedRepoEntity(
+                true,
+                "added to favourites"
+            )
+            DetailsScreenEvent.OnUnLovedBtnClicked -> insertGitHubSavedRepoEntity(toastMsg = "Removed From Favourites")
         }
     }
 
@@ -95,46 +84,32 @@ class DetailsViewModel @Inject constructor(
 
     private fun getRepoItem(repoId: Int) {
         val repoItemFromPagination = repo.getRepoItem(repoId)
-        viewModelScope.launch {
-            repoItemFromPagination.onEach {
-                delay(500L)
-                when (it) {
-                    is Resource.Error -> {
-                        state = state.copy(isLoading = false, error = it.message)
-                    }
-                    is Resource.Loading -> {
-                        state = state.copy(isLoading = true)
-                    }
-                    is Resource.Success -> {
-                        state = state.copy(repos = it.data, isLoading = false)
-                    }
-                }
-            }.launchIn(viewModelScope)
-
-
-        }
+        getGitHubRepo(repoItemFromPagination)
 
         state.repos.let {
             val repoItem = repo.getSavedRepoById(repoId)
-            viewModelScope.launch {
-                repoItem.onEach {
-                    delay(500L)
-                    when (it) {
-                        is Resource.Error -> {
-                            state = state.copy(isLoading = false, error = it.message)
-                        }
-                        is Resource.Loading -> {
-                            state = state.copy(isLoading = true)
-                        }
-                        is Resource.Success -> {
-                            state = state.copy(repos = it.data, isLoading = false)
-                        }
-                    }
-                }.launchIn(viewModelScope)
-            }
+            getGitHubRepo(repoItem)
         }
 
+    }
 
+    private fun getGitHubRepo(gitHubRepo: Flow<Resource<GitHubRepo>>) {
+        viewModelScope.launch {
+            gitHubRepo.onEach {
+                delay(500L)
+                state = when (it) {
+                    is Resource.Error -> {
+                        state.copy(isLoading = false, error = it.message)
+                    }
+                    is Resource.Loading -> {
+                        state.copy(isLoading = true)
+                    }
+                    is Resource.Success -> {
+                        state.copy(repos = it.data, isLoading = false)
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     sealed class UiEvent {

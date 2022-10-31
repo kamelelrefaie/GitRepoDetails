@@ -26,13 +26,10 @@ class ConnectivityObserverImpl @Inject constructor  (
                     launch { send(true) }
                 }
 
-
-
                 override fun onLost(network: Network) {
                     super.onLost(network)
                     launch { send(false) }
                 }
-
 
             }
 

@@ -107,4 +107,8 @@ dependencies {
 
     // Zxing
     implementation 'com.google.zxing:core:3.5.0'
+
+    // memory leaks
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
 }

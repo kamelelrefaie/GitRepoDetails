@@ -1,6 +1,5 @@
 package com.example.juniorandroiddevelopertask.presentaion.ui.search_screen
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,7 +23,6 @@ class SearchViewModel @Inject constructor(
 
     var state by mutableStateOf(SearchState())
         private set
-
 
     private var searchJob: Job? = null
 
@@ -52,7 +50,7 @@ class SearchViewModel @Inject constructor(
     )
 
     init {
-        //get id from scanner
+        //get text from Qr scanner
         val saved = savedStateHandle.get<String>(SEARCH_QUERY)
         saved?.let {
             onEvent(SearchScreenEvent.OnSearchQueryChange(it))
@@ -62,29 +60,30 @@ class SearchViewModel @Inject constructor(
 
     fun onEvent(event: SearchScreenEvent) {
         when (event) {
-
             is SearchScreenEvent.OnSearchQueryChange -> {
                 val isNotSameQuery = state.searchQuery != event.query
                 if (isNotSameQuery) {
-                    paginator.reset()
-                    state = state.copy(repos = emptyList(), page = 0)
+                    resetPagination()
                 }
-                Log.e("isnotthesame", "$isNotSameQuery")
                 state = state.copy(searchQuery = event.query)
 
                 searchJob?.cancel()
                 searchJob = viewModelScope.launch {
-                    delay(300L)
+                    //added some delay to avoid high typing speed
+                    delay(200L)
 
                     if (state.searchQuery.isEmpty()) state = state.copy(repos = emptyList())
-                    else {
-                        paginator.loadNextItems()
-                    }
+                    else paginator.loadNextItems()
                 }
             }
         }
     }
 
+
+    private fun resetPagination() {
+        paginator.reset()
+        state = state.copy(repos = emptyList(), page = 0)
+    }
 
 }
 

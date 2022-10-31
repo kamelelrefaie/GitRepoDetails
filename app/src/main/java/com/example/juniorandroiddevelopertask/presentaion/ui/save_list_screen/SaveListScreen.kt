@@ -1,13 +1,10 @@
 package com.example.juniorandroiddevelopertask.presentaion.ui.save_list_screen
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ForkRight
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -18,41 +15,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.SearchScreenEvent
+import com.example.juniorandroiddevelopertask.presentaion.ui.save_list_screen.components.ChipMaker
 import com.example.juniorandroiddevelopertask.presentaion.ui.search_screen.components.RepoItem
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SaveListScreen(navHostController: NavHostController) {
     val viewModel: SaveListScreenViewModel = hiltViewModel()
     val state = viewModel.state
 
-    Column() {
+    Column {
         Spacer(modifier = Modifier.height(10.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            AssistChip(
+            ChipMaker(
                 onClick = { viewModel.onEvent(SaveListScreenEvent.SavedRepos) },
-                shape = RoundedCornerShape(8.dp), label = { Text(text = "Saved Repos") },
-                leadingIcon = {
-                    Icon(
-                        Icons.Filled.Save,
-                        contentDescription = "Localized description",
-                        Modifier.size(AssistChipDefaults.IconSize)
-                    )
-                }
+                isLike = !state.isLike,
+                label = "Saved Repos",
+                imageVector = Icons.Filled.Save
             )
-
-            AssistChip(
+            ChipMaker(
                 onClick = { viewModel.onEvent(SaveListScreenEvent.LikedRepos) },
-                shape = RoundedCornerShape(8.dp), label = { Text(text = "Liked Repos") },
-                leadingIcon = {
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Localized description",
-                        Modifier.size(AssistChipDefaults.IconSize)
-                    )
-                }
+                isLike = state.isLike,
+                label = "Liked Repos",
+                imageVector = Icons.Filled.Favorite
             )
         }
 

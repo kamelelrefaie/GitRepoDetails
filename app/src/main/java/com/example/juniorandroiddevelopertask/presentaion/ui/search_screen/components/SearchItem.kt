@@ -27,7 +27,7 @@ val bgColorList = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepoItem(repo: GitHubRepo, navController: NavHostController = rememberNavController()) {
+fun RepoItem(repo: GitHubRepo, navController: NavHostController) {
     Card(
         shape = RoundedCornerShape(14.dp),
         modifier = Modifier

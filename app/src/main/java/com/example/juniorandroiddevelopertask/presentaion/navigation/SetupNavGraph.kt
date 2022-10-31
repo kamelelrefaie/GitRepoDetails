@@ -26,7 +26,6 @@ fun SetupNavGraph(navHostController: NavHostController) {
         composable(route = Screen.RepoDetail.route, arguments = listOf(navArgument(name = REPO_ID){
             type = NavType.IntType
         })){
-          Log.e("idname",it.arguments?.getInt(REPO_ID).toString())
          DetailScreen(navHostController = navHostController)
         }
 
